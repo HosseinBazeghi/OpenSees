@@ -685,6 +685,35 @@ if(MPI_FOUND)
     if (DEFINED OPENMPI)
         target_compile_definitions(OpenSeesMP 
         PUBLIC _PARALLEL_INTERPRETERS ${MUMPS_FLAG} _OPENMPI)
+
+        set(OPS_TARGETS
+        OPS_Matrix
+        OPS_Actor
+        OPS_ObjectBroker
+        OPS_Handler
+        OPS_Recorder
+        OPS_Reliability
+        OPS_Tagged
+        OPS_Utilities
+        OPS_ModelBuilder
+        OPS_Domain
+        OPS_SysOfEqn
+        OPS_Analysis
+        OPS_ConvergenceTest
+        OPS_Thermal
+        OPS_Element
+        OPS_ElementFortran
+        OPS_Material
+        OPS_MaterialFortran
+        OPS_Damage
+        OPS_Database
+        #OPS_INTERPRETER
+        )
+    
+        foreach(target IN LISTS OPS_TARGETS)
+          target_compile_definitions(${target} PUBLIC _PARALLEL_INTERPRETERS)
+        endforeach()
+
     else()
         target_compile_definitions(OpenSeesMP 
         PUBLIC _PARALLEL_INTERPRETERS ${MUMPS_FLAG})
